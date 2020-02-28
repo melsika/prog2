@@ -38,4 +38,4 @@ Einerseits soll es möglich sein, Geschenkideen Personen zuzuordnen. Andererseit
 - Die gespeicherten Einträge werden ausgegeben
 - Weiterführend wären Links zu Webseiten wo der Artikel gefunden wurde denkbar
 
-![Diagram](C:\Programmieren\prog2\diagram.png)
+![Diagram](./diagram.png)
