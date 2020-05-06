@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="de">
+	<head>
+		<meta charset="utf-8">
+		<title>Hello</title> 
+		<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+	</head> 
+	<body> 
+		<h1>Hallo {{ name }}!</h1>
+
+		<form method="POST">
+		<input type="text" name="nachname" placeholder="Bitte Ihren Namen ein">
+		<button type="submit">Senden</button>
+		</form>
+
+		<a href="{{ url_for('test')}}">Test</a>
+		<h1>{{ vorname }}</h1>
+		te
+
+		<ul>
+			{% for ding in dinger %}
+				<li>{{ ding }}</li>
+			{% endfor %}
+		</ul>
+
+		{% if zahl > 5 %}
+			<p>{{ zahl }} ist grösser als 5</p>
+		{% else %}
+			<p>{{ zahl }} ist nicht grösser als 5</p>
+		{% endif %}
+
+
+
+	</body>
+</html>
+
