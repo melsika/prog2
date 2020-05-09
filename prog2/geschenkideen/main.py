@@ -16,6 +16,15 @@ def begruessung(name=False):
 
 """
 
+@app.route('/hallo')
+def begruessung():
+    return render_template('index.html', name="Melanie")
+
+
+@app.route("/geschenk_erstellen")
+def geschenk_erstellen():
+  print("Geschenk erstellen")
+
 
 
 @app.route("/hello/", methods=['GET', 'POST'])
