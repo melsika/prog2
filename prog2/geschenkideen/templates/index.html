@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
+    
     
     {% include "header.html" %}
 
-    <title>Hello, world!</title>
+    <title>Geschenkideen</title>
   </head>
 
   <body>
@@ -19,10 +19,16 @@
 
 
         <h1>Hallo {{ name }}! </h1>
+        <a href="{{ url_for('json_speichern')}}">Test</a>
+        "{{url_for('auflisten')}}"
         
+
+
         <div class="row justify-content-center mt-4">
         <h1>Geschenkideen organisieren</h1>
         </div>
+
+        
 
         <div class="row justify-content-center">
             <div class="col-8 mt-4">
@@ -31,8 +37,8 @@
                         <div class="card">
                           <div class="card-body">
                             <h5 class="card-title">Erfassen</h5>
-                            <p class="card-text">Du hast eine Geschenkidee entdeckt?</p>
-                            <a href="#" class="btn btn-primary">Idee Erfassen</a>
+                            <p class="card-text" > {{url_for('auflisten')}} Du hast eine Geschenkidee entdeckt?</p>
+                            <a href="{{ url_for('geschenk_erfassen')}}" class="btn btn-primary">Geschenk Erfassen</a>
                           </div>
                         </div>
                       </div>
@@ -41,37 +47,23 @@
                           <div class="card-body">
                             <h5 class="card-title">Suchen</h5>
                             <p class="card-text">Lass dich inspirieren</p>
-                            <a href="#" class="btn btn-primary">Idee suchen</a>
+                            <a href="{{ url_for('geschenk_suchen')}}" class="btn btn-primary">Geschenk suchen</a>
                           </div>
                         </div>
                       </div>
                     </div>
             </div>
             </div>
-            
-
-        
-
-    
-
-
-
-
-
-
+  
 
 
     <!--container ende-->
     </div>
 
-    
+    {% include "footer.html" %}
   
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="{{ url_for('static', filename='./bootstrap/js/jquery-3.4.1.slim.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  
   </body>
 </html>
 
