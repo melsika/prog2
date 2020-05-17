@@ -8,6 +8,8 @@ import daten
 app = Flask("Geschenkidee")
 app = Flask("Daten")
 
+geschenk_idee_json = "./geschenk_idee.json"
+
 """
 @app.route('/hello/')
 @app.route("/hello/<name>")
@@ -19,9 +21,12 @@ def begruessung(name=False):
 
 """
 
+"""alle Seitenverlinkungen"""
+
 @app.route('/geschenkidee')
 def home():
-    return render_template('index.html', name="Melanie")
+    geschenk = "hallotestgeklappt"
+    return render_template('index.html', name="Melanie", geschenk="geklappt" )
 
 
 
@@ -34,6 +39,41 @@ def geschenk_erfassen():
 @app.route("/geschenkidee_suchen")
 def geschenk_suchen():
     return render_template('geschenk_suchen.html')
+
+
+@app.route("/ergebnis")
+def ergebnis():
+    return render_template('ergebnis.html')
+
+"""--------------------------------------------"""
+"""json"""
+try:
+    open_file = open("text.txt", encoding = 'utf-8')
+except Exception as f:
+    raise
+else:
+    pass
+finally:
+    open_file.close()
+
+
+def doku_test_schreiben():
+    with open('text.txt','w', encoding = 'utf-8') as open_file:
+        open_file.write("erstes doku\n")
+        open_file.write("zweite zeile\n")
+        open_file.write("letzte")
+
+def doku_test_lesen():
+    open_file = open("text.txt", 'r', encoding = 'utf-8')
+    open_file.read(4)
+
+
+@app.route("/json_test")
+def json_test():
+    
+    with open('geschenk_idee.json') as open_file:
+        data = json.load(                                     open)
+    return print(data)
 
 
 @app.route("/speichern_ich")
@@ -56,7 +96,7 @@ def json_einlesen():
         json_als_string = open_file.read()
         mein_eingelesenes_dict = loads(json_als_string)
 
-    return mein_eingelesenes_dict
+    return render_template("ergebnis.html", mein_eingelesenes_dict)
 
 
 
