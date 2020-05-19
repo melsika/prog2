@@ -4,9 +4,13 @@ from flask import request
 from flask import render_template
 from json import loads, dumps
 import daten
+from datetime import datetime
+import json
+
 
 app = Flask("Geschenkidee")
 app = Flask("Daten")
+app = Flask("templates")
 
 geschenk_idee_json = "./geschenk_idee.json"
 
@@ -29,10 +33,9 @@ def home():
     return render_template('index.html', name="Melanie", geschenk="geklappt" )
 
 
-
-@app.route("/geschenkidee_erfassen")
+@app.route("/geschenk_erfassen")
 def geschenk_erfassen():
-  return render_template('geschenk_erfassen.html')
+    return render_template('geschenk_erfassen.html')
 
 
 
@@ -45,8 +48,14 @@ def geschenk_suchen():
 def ergebnis():
     return render_template('ergebnis.html')
 
+
+@app.route("/geschenk_idee")
+def index():
+    return "Willkommen zu unsere App."
+
 """--------------------------------------------"""
-"""json"""
+"""json mit Internet"""
+"""
 try:
     open_file = open("text.txt", encoding = 'utf-8')
 except Exception as f:
@@ -59,8 +68,8 @@ finally:
 
 def doku_test_schreiben():
     with open('text.txt','w', encoding = 'utf-8') as open_file:
-        open_file.write("erstes doku\n")
-        open_file.write("zweite zeile\n")
+        open_file.write("erstes dokun")
+        open_file.write("zweite zeile")
         open_file.write("letzte")
 
 def doku_test_lesen():
@@ -86,9 +95,6 @@ def json_speichern():
 
     return render_template("ergebnis.html", liste = geschenk_idee)
     
-    """json_als_string = dumps(geschenk_idee)
-    geschenk_idee = loads(json_als_string)
-""" 
 
 @app.route("/einlesen")
 def json_einlesen():
@@ -98,25 +104,82 @@ def json_einlesen():
 
     return render_template("ergebnis.html", mein_eingelesenes_dict)
 
-
+"""
 
 """---------------------------------------------------"""
 
+"""Loris"""
+def eintrag_speichern(pd, id, datum, symp1, symp2, symp3, symp4, symp5, symp6, symp7, symp8):
+    pd = dic_laden()
+    if id in pd:
+        pd[id][datum] = {"Sodbrennen": symp1,}
 
 
+@app.route("/neuereintrag", methods= ["GET", "POST"])
+def neuereintrag():
+    if request.method == "POST":
+        pd = {}
+        id = request.form["id"]
+        datum = request.form["datum"]
+        symp1 = request.form["symp1"]
+        symp2 = request.form["symp2"]
+        symp3 = request.form["symp3"]
+        symp4 = request.form["symp4"]
+        symp5 = request.form["symp5"]
+        symp6 = request.form["symp6"]
+        symp7 = request.form["symp7"]
+        symp8 = request.form["symp8"]
+
+        eintrag_speichern(pd, id, datum, symp1, symp2, symp3, symp4, symp5, symp6, symp7, symp8)
+
+    return render_template("neuereintrag.html")
 
 
+def dic_laden():
+    try:
+        with open('./templates/json/test.json', "r") as json_file:
+            pd = json.load(json_file)
+        return pd
+    except Exception:
+        return {}
 
-@app.route("/speichern/<aktivitaet>")
-def speichern(aktivitaet):
-    zeitpunkt, aktivitaet = daten.aktivitaet_speichern(aktivitaet)
+def eintrag_speichern(pd, id, datum, symp1, symp2, symp3, symp4, symp5, symp6, symp7, symp8):
+    pd = dic_laden()
+    if id in pd:
+        pd[id][datum] = {"Sodbrennen": symp1, "Rückfluss von Flüssigkeit oder Nahrung in den Mund": symp2, "Schmerzen im Oberbauch": symp3, "Beschwerden beim Schlucken der Nahrung": symp4, "Heiserkeit": symp5, "Halsschmerzen": symp6, "Mundbrennen": symp7, "Völlegefühl im Oberbauch": symp8}
 
-    return "Gespeichert: " + aktivitaet + " um " + str(zeitpunkt)
+    else:
+        pd[id] = {datum: {"Sodbrennen": symp1, "Rückfluss von Flüssigkeit oder Nahrung in den Mund": symp2, "Schmerzen im Oberbauch": symp3, "Beschwerden beim Schlucken der Nahrung": symp4, "Heiserkeit": symp5, "Halsschmerzen": symp6, "Mundbrennen": symp7, "Völlegefühl im Oberbauch": symp8}}
+    with open("./templates/json/test.json", "w", encoding='utf-8') as open_file:
+            json.dump(pd, open_file, indent = 4)
+
+"""______--------------------------------------------------"""
+
+
+"""Odoni Github"""
+
+
+  
+@app.route("/geschenk_erfassen", methods=['GET', 'POST'])
+def formular_neuer_eintrag():
+    if request.method == 'POST':
+        idee = request.form["idee"]
+        beschreibung = request.form["beschreibung"]
+        person = request.form["person"]
+        hashtag = request.form["hashtag"]
+
+        person, idee, beschreibung, hashtag = daten.formular_speichern(person, idee, beschreibung, hashtag)
+        rueckgabe_string = "Gespeichert: " + person + " um " + str(zeitpunkt) + beschreibung + hashtag + idee
+        return rueckgabe_string
+
+    return render_template("geschenk_erfassen.html")
+
+   
 
 
 @app.route("/liste")
 def auflisten():
-    aktivitaeten = daten.aktivitaeten_laden()
+    aktivitaeten = daten.formular_laden()
 
     aktivitaeten_liste = ""
     for key, value in aktivitaeten.items():
@@ -124,6 +187,10 @@ def auflisten():
         aktivitaeten_liste += zeile
 
     return aktivitaeten_liste
+
+
+
+
 
 
 """

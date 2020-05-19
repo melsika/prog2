@@ -24,8 +24,9 @@
         <div class="row justify-content-center mt-4">
         <h1>Geschenkideen erfassen</h1>
         </div>
+<!--
 <div class="col-8 offset-2">
-<form>
+<form action="geschenk_erfassen" method="POST">
    <div class="form-group">
     <label for="formGroupExampleInput">Geschenkidee</label>
     <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Geschenkidee">
@@ -51,10 +52,32 @@
           </label>
         </div>
   </div>
+  -->
+  <div class="col-8 offset-2">
+  <form action="geschenk_erfassen" method="POST">
   <div class="form-group">
-    <label for="formGroupExampleInput2">Neuer Tag hinzufügen</label>
-    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Tag">
+    <label for="formGroupExampleInput2">Person</label>
+    <input name="person" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Vorname Nachname">
+  </div><div class="form-group">
+  <div class="form-group">
+    <label for="formGroupExampleInput2">Geschenkidee</label>
+    <input name="idee" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Bienenwachskerze">
   </div>
+  <div class="form-group">
+    <label for="formGroupExampleInput2">Beschreibung</label>
+    <input name="beschreibung" type="text" class="form-control" id="formGroupExampleInput2" placeholder="mag Duftkerzen">
+  </div>
+    <label for="formGroupExampleInput2">Hashtag</label>
+    <input name="hashtag" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Dekoration">
+  </div>
+
+
+
+  <button type="submit">Senden</button>
+      
+
+<input class="btn btn-primary mb-2" type="submit" value="Submit">
+
   
 </form>
 </div>
