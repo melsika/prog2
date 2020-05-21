@@ -44,9 +44,10 @@ def geschenk_suchen():
     return render_template('geschenk_suchen.html')
 
 
-@app.route("/ergebnis")
-def ergebnis():
-    return render_template('ergebnis.html')
+@app.route("/ergebnis/<personen_name>")
+def ergebnis(personen_name):
+    inhalt = daten.geschenke_anzeigen_fuer_person(personen_name)
+    return render_template('ergebnis.html', geschenk_ideen= inhalt)
 
 
 @app.route("/geschenk_idee")
@@ -167,10 +168,18 @@ def formular_neuer_eintrag():
         beschreibung = request.form["beschreibung"]
         person = request.form["person"]
         hashtag = request.form["hashtag"]
-
-        person, idee, beschreibung, hashtag = daten.formular_speichern(person, idee, beschreibung, hashtag)
-        rueckgabe_string = "Gespeichert: " + person + " um " + str(zeitpunkt) + beschreibung + hashtag + idee
-        return rueckgabe_string
+        inhalt = daten.json_lesen("geschenk_idee_formular.json")
+        neuer_eintrag = {
+            "person" : person,
+            "idee" : idee,
+            "beschreibung" : beschreibung,
+            "hashtag" : hashtag
+        }
+        if daten.idee_bereits_vorhanden(person, idee):
+            return "Eintrag bereits vorhanden, da kann ich noch was anderes"
+        inhalt.append(neuer_eintrag)
+        daten.json_speichern("geschenk_idee_formular.json", inhalt)
+        return "speichern erfolgreich"
 
     return render_template("geschenk_erfassen.html")
 
@@ -179,14 +188,14 @@ def formular_neuer_eintrag():
 
 @app.route("/liste")
 def auflisten():
-    aktivitaeten = daten.formular_laden()
+    formular = daten.formular_laden()
 
-    aktivitaeten_liste = ""
-    for key, value in aktivitaeten.items():
+    formular_liste = ""
+    for key, value in geschenk_idee_formular.items():
         zeile = str(key) + ": " + value + "<br>"
-        aktivitaeten_liste += zeile
+        formular_liste += zeile
 
-    return aktivitaeten_liste
+    return formular_liste
 
 
 

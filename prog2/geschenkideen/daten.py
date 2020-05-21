@@ -1,40 +1,31 @@
 from datetime import datetime
 import json
+def json_speichern(datei_name, datei_inhalt):
+    with open(datei_name, "w") as open_file:
+        json.dump(datei_inhalt, open_file, indent=4)
 
-
-def speichern(person, idee, beschreibung, hashtag):
-    try:
-        with open('./geschenk_idee_formular.json') as open_file:
-            datei_inhalt = json.load(open_file)
-    except FileNotFoundError:
-        datei_inhalt = {}
-
-    #datei_inhalt[person][zeitpunkt] = {"Geschenkidee": idee, "Beschreibung": beschreibung, "Hashtag": hashtag}
-
-    
-    datei_inhalt[str(key)] = value
-
-    
-    print(datei_inhalt)
-
-    with open('./geschenk_idee_formular.json', "w") as open_file:
-        json.dump(datei_inhalt, open_file)
-
-
-def formular_speichern(person, idee, beschreibung, hashtag):
-    datei_name = "geschenk_idee_formular.json"
-    zeitpunkt = datetime.now()
-    speichern(person, idee, beschreibung, hashtag)
-    return person, idee, beschreibung, hashtag 
-
-
-def formular_laden():
-    datei_name = "geschenk_idee_formular.json"
-
+def json_lesen(datei_name):
     try:
         with open(datei_name) as open_file:
-            datei_inhalt = json.load(open_file)
-    except FileNotFoundError:
-        datei_inhalt = {}
+            return json.load(open_file)
+    except Exception:
+        return []
 
-    return datei_inhalt
+def idee_bereits_vorhanden(personen_name, idee):
+    inhalt = json_lesen("geschenk_idee_formular.json")
+    bereits_vorhanden = False
+    for eintrag in inhalt:
+        if eintrag["person"]== personen_name and eintrag["idee"] == idee:
+            bereits_vorhanden = True
+    return bereits_vorhanden
+            
+
+def geschenke_anzeigen_fuer_person(personen_name):
+    inhalt = json_lesen("geschenk_idee_formular.json")
+    resultat = []
+    for eintrag in inhalt:
+        if eintrag["person"]== personen_name:
+            resultat.append(eintrag)
+    return resultat
+    
+ 
