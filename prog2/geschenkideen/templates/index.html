@@ -14,19 +14,22 @@
 
   <body>
 
+  
+  <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" href="{{url_for('home')}}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('geschenk_erfassen')}}">Erfassen</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('geschenk_suchen')}}">suchen</a>
+        </li>
+    </ul>
     
     <div class="container">
 
-
-        <h1>test {{ geschenk }}</h1>
-
-        "{{ url_for ('index') }}"
-
-        <form method="POST">
-        <input type="text" name="aktivitaet" placeholder="Bitte geblablabalvität ein">
-        <button type="submit">Senden</button>
-       </form>
-
+    
 
         <div class="row justify-content-center mt-4">
         <h1>Geschenkideen organisieren</h1>
@@ -41,7 +44,7 @@
                         <div class="card">
                           <div class="card-body">
                             <h5 class="card-title">Erfassen</h5>
-                            <p class="card-text" > {{url_for('auflisten')}} Du hast eine Geschenkidee entdeckt?</p>
+                            <p class="card-text" >Du hast eine Geschenkidee entdeckt?</p>
                             <a href="{{ url_for('geschenk_erfassen')}}" class="btn btn-primary">Geschenk Erfassen</a>
                           </div>
                         </div>

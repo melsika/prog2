@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="de">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        
+        {% include "header.html" %}
+        <title>Geschenkideen - Suchergebnisse - Hashtag</title>
+    </head>
+    <body>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" href="{{url_for('home')}}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('geschenk_erfassen')}}">Erfassen</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('geschenk_suchen')}}">suchen</a>
+        </li>
+    </ul>
+        
+        <div class="container">
+            
+
+        <h1>hallo</h1>
+
+        {{ resultat }}
+
+
+            <!--container ende-->
+        </div>
+        {% include "footer.html" %}
+        
+        
+    </body>
+</html>
