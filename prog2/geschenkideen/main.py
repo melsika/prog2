@@ -27,7 +27,7 @@ def geschenk_erfassen():
 
 
 
-@app.route("/geschenkidee_suchen/")
+@app.route("/geschenk_suchen")
 def geschenk_suchen():
     return render_template('geschenk_suchen.html')
 
@@ -96,11 +96,12 @@ def formular_neuer_eintrag():
     return render_template("geschenk_erfassen.html")
 
 
-@app.route("/geschenkidee_suchen/", methods=['GET', 'POST'])
-def formular_eintrag_suchen():
+@app.route("/geschenk_suchen", methods=['GET', 'POST'])
+def geschenk_eintrag_suchen():
     if request.method == 'POST':
         personen_name = request.form["person"]
-        return personen_name
+        inhalt = daten.geschenke_anzeigen_fuer_person(personen_name)
+    return render_template('ergebnis_person.html', geschenk_ideen= inhalt)
 
 """
 @app.route("/hello/", methods=['GET', 'POST'])

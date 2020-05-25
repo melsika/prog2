@@ -58,5 +58,17 @@
         "idee": "Fischli",
         "beschreibung": "bunt",
         "hashtag": "Tier"
+    },
+    {
+        "person": "Loris",
+        "idee": "Compi",
+        "beschreibung": "Mac",
+        "hashtag": "IT"
+    },
+    {
+        "person": "Loris",
+        "idee": "Computer",
+        "beschreibung": "Mac",
+        "hashtag": "IT"
     }
 ]

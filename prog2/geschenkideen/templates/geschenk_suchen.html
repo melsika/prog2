@@ -17,17 +17,7 @@
 
   <body>
 
-  <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link active" href="{{url_for('home')}}">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{url_for('geschenk_erfassen')}}">Erfassen</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{url_for('geschenk_suchen')}}">suchen</a>
-        </li>
-    </ul>
+ 
 
     <div class="container">
         
@@ -36,31 +26,18 @@
         </div>
 
   <div class="col-8 offset-2">
-
-  <form action="/geschenk_suchen" method="POST">
-    <div class="form-group">
-      <label for="formGroupExampleInput2">Person</label>
-      <input type="text" name="personen_name" class="form-control" id="formGroupExampleInput2" placeholder="Vorname Nachname">
-
- 
-
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <div class="input-group-text">
-          <input type="checkbox" aria-label="Checkbox for following text input">
-        </div>
-      </div>
-      <input type="text" class="form-control" aria-label="Text input with checkbox">
-    </div>
-        
-
-    
-    <a href="{{ url_for('geschenkidee')}}"><input class="btn btn-primary mb-2" type="submit" value="Anzeigen"></a>
-
-    </div>
-  
-  </form>
+  <form action="geschenk_suchen" method="POST">
+  <div class="form-group">
+    <label for="formGroupExampleInput2">Person</label>
+    <input name="person" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Vorname Nachname">
   </div>
+
+<input class="btn btn-primary mb-2" type="submit" value="Speichern">
+
+
+  
+</form>
+</div>
 
 
     <!--container ende-->
