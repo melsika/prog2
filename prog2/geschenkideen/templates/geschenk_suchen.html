@@ -4,53 +4,44 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-   
-
+    
     {% include "header.html" %}
     
-
-        
-
+    
     <title>Geschenkidee suchen</title>
   </head>
-
   <body>
-
- 
-
-    <div class="container">
-        
-        <div class="row justify-content-center mt-4">
-        <h1>Geschenkideen suchen</h1>
-        </div>
-
-  <div class="col-8 offset-2">
-  <form action="geschenk_suchen" method="POST">
-  <div class="form-group">
-    <label for="formGroupExampleInput2">Person</label>
-    <input name="person" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Vorname Nachname">
-  </div>
-
-<input class="btn btn-primary mb-2" type="submit" value="Speichern">
-
-
-  
-</form>
-</div>
-
-
-    <!--container ende-->
-    </div>
-
+    {% include "navbar.html" %}
     
-  
+    <div class="container">
+      
+      <div class="row justify-content-center mt-4">
+        <h1>Geschenkideen suchen</h1>
+      </div>
 
+      <div class="col-8 offset-2">
+        <h6>Nach Person suchen</h6>
+        <form action="geschenk_suchen" class="mb-5" method="POST">
+          <div class="form-group">
+            <label for="formGroupExampleInput2">Person</label>
+            <input name="person" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Name">
+          </div>
+          <br>
+          <h6>Nach Hashtags suchen</h6>
+          
+          {% for hashtag in hashtags %}
+            <div class="checkbox">
+              <label><input name="hashtag" type="checkbox" value={{hashtag}}> {{ hashtag }}</label>
+            </div>
+          {% endfor %}
+          <input class="btn btn-primary mb-2 mt-3" type="submit" value="Suchen">
+          
+        </form>
+      </div>
+      <!--container ende-->
+    </div>
+    
+    
     {% include "footer.html" %}
   </body>
 </html>
-
-
-
-
-

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="de">
+    <head>
+        
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        
+        {% include "header.html" %}
+        <title>Geschenkideen - Suchergebnisse</title>
+    </head>
+    <body>
+        {% include "navbar.html" %}
+        
+        <div class="container">
+            
+            
+            <div class="row justify-content-center mt-4">
+                <h1>Was sich {{ name }} wünscht</h1>
+            </div>
+            <div class="row">
+                {% for geschenk_idee in geschenk_ideen %}
+                    <div class="col-lg-3 card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{geschenk_idee["idee"]}}</h5>
+                            <p class="card-text">Beschreibung: {{geschenk_idee["beschreibung"]}}<br>
+                                Hashtag: {{geschenk_idee["hashtag"]}}
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- container ende-->
+        </div>
+        {% include "footer.html" %}
+        
+        
+    </body>
+</html>

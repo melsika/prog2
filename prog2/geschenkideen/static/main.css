@@ -1,16 +1,18 @@
 h1 {
-    color: white;
-    background: green;
+    color: darkblue;
 }
 
-h3 {color: blue;}
+h3 {color: darkviolet;}
+
+h6 {color: blue}
 
 .footer {
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: red;
+  background-color: grey;
   color: white;
   text-align: center;
+  margin-top: 4;
 }

@@ -11,17 +11,7 @@
     </head>
     <body>
 
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link active" href="{{url_for('home')}}">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{url_for('geschenk_erfassen')}}">Erfassen</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{url_for('geschenk_suchen')}}">suchen</a>
-        </li>
-    </ul>
+   {% include "navbar.html" %}
         
         <div class="container">
             
@@ -31,6 +21,15 @@
         {{ resultat }}
         {{ resultat }}
         {{ resultat["Tier"] }}
+
+        <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <input type="checkbox" aria-label="Checkbox for following text input">
+        </div>
+      </div>
+      <input type="text" class="form-control" aria-label="Text input with checkbox">
+    </div>
 
 
             <!--container ende-->

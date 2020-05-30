@@ -1,74 +1,74 @@
 [
     {
-        "person": "j",
-        "idee": "lkj",
-        "beschreibung": "lkj",
-        "hashtag": "lkj"
-    },
-    {
-        "person": "a2",
-        "idee": "2",
-        "beschreibung": "2",
-        "hashtag": "2"
-    },
-    {
-        "person": "test",
-        "idee": "",
-        "beschreibung": "",
-        "hashtag": "2"
+        "person": "Melanie",
+        "idee": "Karte",
+        "beschreibung": "Geburtstagskarte",
+        "hashtag": "Karte"
     },
     {
         "person": "Melanie",
-        "idee": "Kerze",
-        "beschreibung": "blau",
-        "hashtag": "Dekoration"
+        "idee": "Glas",
+        "beschreibung": "Farbig",
+        "hashtag": "K\u00fcche"
     },
     {
-        "person": "",
-        "idee": "",
-        "beschreibung": "",
-        "hashtag": ""
-    },
-    {
-        "person": "Andrin",
-        "idee": "Star Wars",
-        "beschreibung": "",
-        "hashtag": "Spielen"
-    },
-    {
-        "person": "Fabio",
-        "idee": "",
-        "beschreibung": "",
-        "hashtag": ""
-    },
-    {
-        "person": "Bambusb\u00e4r",
-        "idee": "Bambus",
-        "beschreibung": "gr\u00fcn",
-        "hashtag": "Essen"
-    },
-    {
-        "person": "Andrin",
-        "idee": "Lego",
-        "beschreibung": "Harry Potter",
-        "hashtag": "Spielen"
-    },
-    {
-        "person": "Finn",
-        "idee": "Fischli",
-        "beschreibung": "bunt",
+        "person": "Melanie",
+        "idee": "Hund",
+        "beschreibung": "zum knuddeln",
         "hashtag": "Tier"
     },
     {
-        "person": "Loris",
-        "idee": "Compi",
-        "beschreibung": "Mac",
+        "person": "Melanie",
+        "idee": "H\u00fcndin",
+        "beschreibung": "zum knuddeln",
+        "hashtag": "Tier"
+    },
+    {
+        "person": "Wenke",
+        "idee": "Tasse",
+        "beschreibung": "blau",
+        "hashtag": "K\u00fcche"
+    },
+    {
+        "person": "Wenke",
+        "idee": "Stuhl",
+        "beschreibung": "aus Holz",
+        "hashtag": "Zimmer"
+    },
+    {
+        "person": "Wenke",
+        "idee": "Bett",
+        "beschreibung": "240cm",
+        "hashtag": "Zimmer"
+    },
+    {
+        "person": "Wenke",
+        "idee": "Schrank",
+        "beschreibung": "Holz",
+        "hashtag": "Zimmer"
+    },
+    {
+        "person": "Wenke",
+        "idee": "Kleider",
+        "beschreibung": "T-Shirt",
+        "hashtag": "Kleider"
+    },
+    {
+        "person": "Wenke",
+        "idee": "Messer",
+        "beschreibung": "scharf",
+        "hashtag": "K\u00fcche"
+    },
+    {
+        "person": "Wenke ",
+        "idee": "Computer",
+        "beschreibung": "Laptop",
         "hashtag": "IT"
     },
     {
-        "person": "Loris",
-        "idee": "Computer",
-        "beschreibung": "Mac",
-        "hashtag": "IT"
+        "person": "Wenke",
+        "idee": "Fotoapparat",
+        "beschreibung": "Digicam",
+        "hashtag": "Ferien"
     }
 ]

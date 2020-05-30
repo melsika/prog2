@@ -27,10 +27,13 @@ def geschenk_erfassen():
 
 
 
-@app.route("/geschenk_suchen")
-def geschenk_suchen():
-    return render_template('geschenk_suchen.html')
 
+
+
+"""braucht es diese Route zu ergebnis überhaupt?"""
+@app.route("/geschenk_ergebnis")
+def geschenk_ergebnis_person():
+    return render_template('geschenk_ergebnis_person.html')
 
 
 @app.route("/ergebnis/<personen_name>")
@@ -53,14 +56,6 @@ def ergebnis(personen_name):
     inhalt = daten.geschenke_anzeigen_fuer_person(personen_name)
     return render_template('ergebnis_person.html', geschenk_ideen= inhalt)
 
-
-
-@app.route("/hashtags")
-def hashtags():
-    resultat = {
-    "test1key" : daten.hashtags_anzeigen()
-    }
-    return resultat
 """
 
 """---------------------------------------------------"""
@@ -88,94 +83,42 @@ def formular_neuer_eintrag():
             "hashtag" : hashtag
         }
         if daten.idee_bereits_vorhanden(person, idee):
-            return "Eintrag bereits vorhanden, da kann ich noch was anderes"
+            return render_template('bereits_vorhandene_geschenkidee.html', person=person, beschreibung=beschreibung, idee=idee, hashtag=hashtag)
         inhalt.append(neuer_eintrag)
         daten.json_speichern("geschenk_idee_formular.json", inhalt)
-        return "speichern erfolgreich"
+        return render_template('erfolgreich_gespeichert.html', person=person, beschreibung=beschreibung, idee=idee, hashtag=hashtag)
 
     return render_template("geschenk_erfassen.html")
 
 
 @app.route("/geschenk_suchen", methods=['GET', 'POST'])
+def geschenk_suchen():
+    hashtags = daten.hashtags_anzeigen()
+
+
+    if request.method == 'POST':
+        personen_name = request.form["person"]
+        ausgewaehlte_hashtags = request.form.getlist("hashtag")
+        print(ausgewaehlte_hashtags)
+        inhalt = daten.geschenke_anzeigen_fuer_person(personen_name)
+        geschenke = daten.geschenke_mit_hashtags(inhalt, ausgewaehlte_hashtags)
+        return render_template('geschenk_ergebnis_person.html', geschenk_ideen= geschenke, name= personen_name)
+    return render_template('geschenk_suchen.html', hashtags=hashtags)
+
+
+
+
+
+""" SICHERUNG ZUM LÖSCHEN WENNS FUNKTIONIERT
+@app.route("/geschenk_suchen", methods=['GET', 'POST'])
 def geschenk_eintrag_suchen():
     if request.method == 'POST':
         personen_name = request.form["person"]
         inhalt = daten.geschenke_anzeigen_fuer_person(personen_name)
-    return render_template('ergebnis_person.html', geschenk_ideen= inhalt)
-
-"""
-@app.route("/hello/", methods=['GET', 'POST'])
-def hello():
-    if request.method == 'POST':
-        ziel_person = request.form['vorname']
-        rueckgabe_string = "Hello " + ziel_person + "!"
-        return rueckgabe_string
-
-    return render_template("index.html")
-  """ 
+    return render_template('geschenk_ergebnis_person.html', geschenk_ideen= inhalt, name= personen_name)
 """
 
-@app.route("/ergebnis/<personen_name>")
-def ergebnis(personen_name):
-    """
+
     
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
-
-"""
-
-if __nachname__ == "__main__":    
-	app.run(debug=True, port=5000)
-
-if __strasse__ == "__main__":    
-	app.run(debug=True, port=5000)
-
-if __zahl__ == "__main__":    
-	app.run(debug=True, port=5000)
-"""
-
-"""Loris
-def eintrag_speichern(pd, id, datum, symp1, symp2, symp3, symp4, symp5, symp6, symp7, symp8):
-    pd = dic_laden()
-    if id in pd:
-        pd[id][datum] = {"Sodbrennen": symp1,}
-
-
-@app.route("/neuereintrag", methods= ["GET", "POST"])
-def neuereintrag():
-    if request.method == "POST":
-        pd = {}
-        id = request.form["id"]
-        datum = request.form["datum"]
-        symp1 = request.form["symp1"]
-        symp2 = request.form["symp2"]
-        symp3 = request.form["symp3"]
-        symp4 = request.form["symp4"]
-        symp5 = request.form["symp5"]
-        symp6 = request.form["symp6"]
-        symp7 = request.form["symp7"]
-        symp8 = request.form["symp8"]
-
-        eintrag_speichern(pd, id, datum, symp1, symp2, symp3, symp4, symp5, symp6, symp7, symp8)
-
-    return render_template("neuereintrag.html")
-
-
-def dic_laden():
-    try:
-        with open('./templates/json/test.json', "r") as json_file:
-            pd = json.load(json_file)
-        return pd
-    except Exception:
-        return {}
-
-def eintrag_speichern(pd, id, datum, symp1, symp2, symp3, symp4, symp5, symp6, symp7, symp8):
-    pd = dic_laden()
-    if id in pd:
-        pd[id][datum] = {"Sodbrennen": symp1, "Rückfluss von Flüssigkeit oder Nahrung in den Mund": symp2, "Schmerzen im Oberbauch": symp3, "Beschwerden beim Schlucken der Nahrung": symp4, "Heiserkeit": symp5, "Halsschmerzen": symp6, "Mundbrennen": symp7, "Völlegefühl im Oberbauch": symp8}
-
-    else:
-        pd[id] = {datum: {"Sodbrennen": symp1, "Rückfluss von Flüssigkeit oder Nahrung in den Mund": symp2, "Schmerzen im Oberbauch": symp3, "Beschwerden beim Schlucken der Nahrung": symp4, "Heiserkeit": symp5, "Halsschmerzen": symp6, "Mundbrennen": symp7, "Völlegefühl im Oberbauch": symp8}}
-    with open("./templates/json/test.json", "w", encoding='utf-8') as open_file:
-            json.dump(pd, open_file, indent = 4)
-"""

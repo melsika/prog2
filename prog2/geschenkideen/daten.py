@@ -35,16 +35,18 @@ In meine leere resultat Liste werden die gesuchten Personen hinzugefügt
 """
 def geschenke_anzeigen_fuer_person(personen_name):
     inhalt = json_lesen("geschenk_idee_formular.json")
-    resultat_person = []
-    for eintrag in inhalt:
-        if eintrag["person"]== personen_name:
-            resultat_person.append(eintrag)
-    return resultat_person
+    if personen_name != "":
+        resultat_person = []
+        for eintrag in inhalt:
+            if eintrag["person"]== personen_name:
+                resultat_person.append(eintrag)
+        return resultat_person
+    return inhalt
 
 
 
 """
-Hier suche ich nach allen Einträgen, die diesen hashtag geispeichert haben.
+Hier suche ich nach allen Einträgen, die diesen hashtag gespeichert haben.
 """
 def hashtags_anzeigen():
     inhalt = json_lesen("geschenk_idee_formular.json")
@@ -52,3 +54,13 @@ def hashtags_anzeigen():
     for eintrag in inhalt:
         resultat.append(eintrag["hashtag"])
     return list(set(resultat))
+
+
+def geschenke_mit_hashtags(geschenke, hashtags):
+    if len(hashtags) > 0:
+        resultat = []
+        for eintrag in geschenke:
+            if eintrag["hashtag"] in hashtags:
+                resultat.append(eintrag)
+        return resultat
+    return geschenke

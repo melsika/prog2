@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="de">
+    <head>
+        
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        
+        {% include "header.html" %}
+        <title>Speichern erfolgreich</title>
+    </head>
+    <body>
+        {% include "navbar.html" %}
+        
+        <div class="container">
+            
+            
+            <div class="row justify-content-center mt-4">
+                
+                <h1>Dein Eintrag wurde erfolgreich gespeichert</h1>
+            </div>
+
+            <div class="row justify-content-center mt-3" class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ person }}</h5>
+                    <p class="card-text"> 
+                        Geschenkidee: {{ idee }}<br>
+                        Beschreibung: {{ beschreibung }}<br>
+                        Hashtag: {{ hashtag }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="row justify-content-center mt-5 mb-5"><a href="{{ url_for('geschenk_erfassen')}}" class="btn btn-primary">Neuer Eintrag erfassen</a></div>
+            <!-- container ende-->
+        </div>
+        {% include "footer.html" %}
+        
+        
+    </body>
+</html>
