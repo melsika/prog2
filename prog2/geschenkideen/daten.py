@@ -1,5 +1,6 @@
 
 import json
+"""import plotly.express as px"""
 
 # Das sind meine allgemeinen Speichern- und Lesefunktionen von Json Dateien
 def json_speichern(datei_name, datei_inhalt):
@@ -53,7 +54,7 @@ def hashtags_anzeigen():
     resultat = []
     for eintrag in inhalt:
         resultat.append(eintrag["hashtag"])
-    return list(set(resultat))
+    return sorted(list(set(resultat)))
 
 
 def geschenke_mit_hashtags(geschenke, hashtags):
@@ -64,3 +65,32 @@ def geschenke_mit_hashtags(geschenke, hashtags):
                 resultat.append(eintrag)
         return resultat
     return geschenke
+
+
+def personen_anzeigen():
+    inhalt = json_lesen("geschenk_idee_formular.json")
+    resultat = []
+    for eintrag in inhalt:
+        resultat.append(eintrag["person"])
+    return sorted(list(set(resultat)))
+
+
+def geschenke_mit_personen(personen):
+    if len(person) > 0:
+        resultat = []
+        for eintrag in personen:
+            if eintrag["person"] in personen:
+                resultat.append(eintrag)
+        return resultat
+    return personen
+
+
+
+
+def visualisierung():
+    data = px.data.gapminder()
+    data_ch = data[data.country == 'Switzerland']
+    fig = px.bar(data_ch, x='year', y='pop',
+                 hover_data=['lifeExp', 'gdpPercap'], color='lifeExp',
+                 labels={'pop': 'Einwohner der Schweiz', 'year': 'Jahrzehnt'}, height=400)
+    fig.show()

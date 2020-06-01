@@ -7,7 +7,12 @@ from json import loads, dumps
 import json
 import daten
 
+"""import numpy as np"""
+"""import matplotlib.pyplot as plt
+import plotly.express as px
+from plotly.offline import plot"""
 
+app = Flask("Datenvisualisierung")
 app = Flask("Geschenkidee")
 app = Flask("Daten")
 app = Flask("templates")
@@ -73,8 +78,8 @@ def formular_neuer_eintrag():
     if request.method == 'POST':
         idee = request.form["idee"]
         beschreibung = request.form["beschreibung"]
-        person = request.form["person"]
-        hashtag = request.form["hashtag"]
+        person = request.form["person"].capitalize()
+        hashtag = request.form["hashtag"].capitalize()
         inhalt = daten.json_lesen("geschenk_idee_formular.json")
         neuer_eintrag = {
             "person" : person,
@@ -91,11 +96,32 @@ def formular_neuer_eintrag():
     return render_template("geschenk_erfassen.html")
 
 
+
+
+
+@app.route("/geschenk_suchen", methods=['GET', 'POST'])
+def geschenk_suchen():
+    personen = daten.personen_anzeigen()
+    hashtags = daten.hashtags_anzeigen()
+    
+    if request.method == 'POST':
+        personen_name = request.form.get("person")
+        ausgewaehlte_hashtags = request.form.getlist("hashtag")
+        print(ausgewaehlte_hashtags)
+        inhalt = daten.geschenke_anzeigen_fuer_person(personen_name)
+        geschenke = daten.geschenke_mit_hashtags(inhalt, ausgewaehlte_hashtags)
+        return render_template('geschenk_ergebnis_person.html', geschenk_ideen= geschenke, name= personen_name)
+    return render_template('geschenk_suchen.html', hashtags=hashtags, personen=personen)
+
+
+
+
+
+""" SICHERUNG ZUM LÖSCHEN WENNS FUNKTIONIERT """
+"""
 @app.route("/geschenk_suchen", methods=['GET', 'POST'])
 def geschenk_suchen():
     hashtags = daten.hashtags_anzeigen()
-
-
     if request.method == 'POST':
         personen_name = request.form["person"]
         ausgewaehlte_hashtags = request.form.getlist("hashtag")
@@ -104,20 +130,65 @@ def geschenk_suchen():
         geschenke = daten.geschenke_mit_hashtags(inhalt, ausgewaehlte_hashtags)
         return render_template('geschenk_ergebnis_person.html', geschenk_ideen= geschenke, name= personen_name)
     return render_template('geschenk_suchen.html', hashtags=hashtags)
-
-
-
-
-
-""" SICHERUNG ZUM LÖSCHEN WENNS FUNKTIONIERT
-@app.route("/geschenk_suchen", methods=['GET', 'POST'])
-def geschenk_eintrag_suchen():
-    if request.method == 'POST':
-        personen_name = request.form["person"]
-        inhalt = daten.geschenke_anzeigen_fuer_person(personen_name)
-    return render_template('geschenk_ergebnis_person.html', geschenk_ideen= inhalt, name= personen_name)
 """
 
+
+
+"""
+
+def data():
+    data = px.data.gapminder()
+    data_ch = data[data.country == 'Switzerland']
+
+    return data_ch
+
+
+def viz():
+    data_ch = data()
+
+    fig = px.bar(
+        data_ch,
+        x='year', y='pop',
+        hover_data=['lifeExp', 'gdpPercap'],
+        color='lifeExp',
+        labels={
+            'pop': 'Einwohner der Schweiz',
+            'year': 'Jahrzehnt'
+        },
+        height=400
+    )
+
+    div = plot(fig, output_type="div")
+    return div
+
+
+@app.route("/")
+def index():
+    div = viz()
+    # return str([str(i) for i in data()])
+    return render_template('index.html', viz_div=div)
+"""
+
+
+
+
+
+
+"""
+#-------------------------------------------- Make a fake dataset:
+height = [3, 12, 5, 18, 45]
+bars = ('A', 'B', 'C', 'D', 'E')
+y_pos = np.arange(len(bars))
+ 
+# Create bars
+plt.bar(y_pos, height)
+ 
+# Create names on the x-axis
+plt.xticks(y_pos, bars)
+ 
+# Show graphic
+plt.show()
+"""
 
     
 if __name__ == "__main__":
