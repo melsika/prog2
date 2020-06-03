@@ -19,19 +19,20 @@
                 
                 <h1>Dein Eintrag wurde erfolgreich gespeichert</h1>
             </div>
-
-            <div class="row justify-content-center mt-3" class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">{{ person }}</h5>
-                    <p class="card-text"> 
-                        Geschenkidee: {{ idee }}<br>
-                        Beschreibung: {{ beschreibung }}<br>
-                        Hashtag: {{ hashtag }}
-                    </p>
+            <div class="row justify-content-center">
+                <div class="mt-3" class="card" style="width: 18rem;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ person }}</h5>
+                        <p class="card-text">
+                            Geschenkidee: {{ idee }}<br>
+                            Beschreibung: {{ beschreibung }}<br>
+                            Hashtag: {{ hashtag }}
+                        </p>
+                    </div>
                 </div>
             </div>
-
-            <div class="row justify-content-center mt-5 mb-5"><a href="{{ url_for('geschenk_erfassen')}}" class="btn btn-primary">Neuer Eintrag erfassen</a></div>
+            <div class="row justify-content-center mt-5 mb-5"><a href="{{ url_for('formular_neuer_eintrag')}}" class="btn btn-primary">Neuer Eintrag erfassen</a></div>
+            
             <!-- container ende-->
         </div>
         {% include "footer.html" %}

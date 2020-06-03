@@ -1,69 +1,53 @@
 <!doctype html>
 <html lang="de">
   <head>
-    <!-- Required meta tags -->
+   
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     
     
     {% include "header.html" %}
-
     <title>Geschenkideen</title>
   </head>
-
   <body>
-
-  {% include "navbar.html" %}
+    {% include "navbar.html" %}
     
     <div class="container">
-
-    
-
-        <div class="row justify-content-center mt-4">
+      
+      <div class="row justify-content-center mt-4">
         <h1>Geschenkideen organisieren</h1>
+      </div>
+      
+      <div class="row justify-content-center">
+        <div class="col-8 mt-4">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Erfassen</h5>
+                  <p class="card-text" >Du hast eine Geschenkidee entdeckt?</p>
+                  <a href="{{ url_for('formular_neuer_eintrag')}}" class="btn btn-primary">Geschenk Erfassen</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Suchen</h5>
+                  <p class="card-text">Lass dich inspirieren</p>
+                  <a href="{{ url_for('geschenk_suchen')}}" class="btn btn-primary">Geschenk suchen</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        
-
-        <div class="row justify-content-center">
-            <div class="col-8 mt-4">
-                <div class="row">
-                      <div class="col-sm-6">
-                        <div class="card">
-                          <div class="card-body">
-                            <h5 class="card-title">Erfassen</h5>
-                            <p class="card-text" >Du hast eine Geschenkidee entdeckt?</p>
-                            <a href="{{ url_for('geschenk_erfassen')}}" class="btn btn-primary">Geschenk Erfassen</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-sm-6">
-                        <div class="card">
-                          <div class="card-body">
-                            <h5 class="card-title">Suchen</h5>
-                            <p class="card-text">Lass dich inspirieren</p>
-                            <a href="{{ url_for('geschenk_suchen')}}" class="btn btn-primary">Geschenk suchen</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-            </div>
-            </div>
-  
-
-
-    <!--container ende-->
+      </div>
+      
+      {{ viz_div|safe }}
+      <!--container ende-->
     </div>
-
     {% include "footer.html" %}
-  
-
-  
+    
+    
   </body>
 </html>
-
-
-
-
-

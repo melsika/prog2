@@ -47,24 +47,19 @@
             </div>
             <br>
             <div class="form-check form-check-inline">
-                <label><input name="person" type="checkbox" value={{person}}> {{ person }}</label>
-              </div>
+              <label><input name="person" type="checkbox" value={{person}}> {{ person }}</label>
+            </div>
             -->
-             
+            
             <div class="form-group">
-              <select class="custom-select">
-                <option value="">Person auswählen</option>{% for person in personen %}
-                <option name="person" value="{{ person }}">{{ person }}</option>{% endfor %}
+              <select class="custom-select" type="checkbox" name="person" value={{person}}>
+                <option>Person auswählen</option>{% for person in personen %}
+                <option  >{{ person }}</option>{% endfor %}
               </select>
             </div>
-          
-            <br>
-
-           
-              
             
-
-
+            <br>
+            
             <h6>Nach Hashtags suchen</h6>
             
             {% for hashtag in hashtags %}

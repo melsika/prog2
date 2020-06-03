@@ -26,42 +26,10 @@ def home():
     return render_template('index.html')
 
 
-@app.route("/geschenk_erfassen")
-def geschenk_erfassen():
-    return render_template('geschenk_erfassen.html')
 
 
 
 
-
-
-"""braucht es diese Route zu ergebnis überhaupt?"""
-@app.route("/geschenk_ergebnis")
-def geschenk_ergebnis_person():
-    return render_template('geschenk_ergebnis_person.html')
-
-
-@app.route("/ergebnis/<personen_name>")
-def ergebnis(personen_name):
-    inhalt = daten.geschenke_anzeigen_fuer_person(personen_name)
-    return render_template('ergebnis_person.html', geschenk_ideen= inhalt)
-
-
-
-@app.route("/hashtags")
-def hashtags():
-    resultat = {
-    "test1key" : daten.hashtags_anzeigen()
-    }
-    return render_template('ergebnis_hashtag.html', resultat=resultat)
-
-"""
-@app.route("/ergebnis/<personen_name>")
-def ergebnis(personen_name):
-    inhalt = daten.geschenke_anzeigen_fuer_person(personen_name)
-    return render_template('ergebnis_person.html', geschenk_ideen= inhalt)
-
-"""
 
 """---------------------------------------------------"""
 
@@ -108,6 +76,9 @@ def geschenk_suchen():
         personen_name = request.form.get("person")
         ausgewaehlte_hashtags = request.form.getlist("hashtag")
         print(ausgewaehlte_hashtags)
+        print(personen_name)
+        if personen_name == "Person auswählen":
+            personen_name = ""
         inhalt = daten.geschenke_anzeigen_fuer_person(personen_name)
         geschenke = daten.geschenke_mit_hashtags(inhalt, ausgewaehlte_hashtags)
         return render_template('geschenk_ergebnis_person.html', geschenk_ideen= geschenke, name= personen_name)
@@ -117,20 +88,7 @@ def geschenk_suchen():
 
 
 
-""" SICHERUNG ZUM LÖSCHEN WENNS FUNKTIONIERT """
-"""
-@app.route("/geschenk_suchen", methods=['GET', 'POST'])
-def geschenk_suchen():
-    hashtags = daten.hashtags_anzeigen()
-    if request.method == 'POST':
-        personen_name = request.form["person"]
-        ausgewaehlte_hashtags = request.form.getlist("hashtag")
-        print(ausgewaehlte_hashtags)
-        inhalt = daten.geschenke_anzeigen_fuer_person(personen_name)
-        geschenke = daten.geschenke_mit_hashtags(inhalt, ausgewaehlte_hashtags)
-        return render_template('geschenk_ergebnis_person.html', geschenk_ideen= geschenke, name= personen_name)
-    return render_template('geschenk_suchen.html', hashtags=hashtags)
-"""
+
 
 
 

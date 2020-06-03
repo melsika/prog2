@@ -36,7 +36,9 @@ In meine leere resultat Liste werden die gesuchten Personen hinzugefügt
 """
 def geschenke_anzeigen_fuer_person(personen_name):
     inhalt = json_lesen("geschenk_idee_formular.json")
-    if personen_name != "":
+    if personen_name == "Person auswählen":
+            personen_name = ""
+    elif personen_name != "":
         resultat_person = []
         for eintrag in inhalt:
             if eintrag["person"]== personen_name:

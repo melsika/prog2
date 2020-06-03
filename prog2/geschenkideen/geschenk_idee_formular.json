@@ -60,7 +60,7 @@
         "hashtag": "K\u00fcche"
     },
     {
-        "person": "Wenke ",
+        "person": "Wenke",
         "idee": "Computer",
         "beschreibung": "Laptop",
         "hashtag": "IT"
@@ -112,5 +112,17 @@
         "idee": "Wespe",
         "beschreibung": "laut",
         "hashtag": "Wald"
+    },
+    {
+        "person": "Melanie",
+        "idee": "Sirup",
+        "beschreibung": "Zitronensirup",
+        "hashtag": "Trinken"
+    },
+    {
+        "person": "Melanie",
+        "idee": "Stern",
+        "beschreibung": "hell",
+        "hashtag": "Weltall"
     }
 ]
