@@ -1,52 +1,99 @@
 
 from flask import Flask
 from flask import request
-from flask import redirect
 from flask import render_template
 from json import loads, dumps
+import plotly
+import plotly.graph_objects as go
+import pandas as pd
+import plotly.express as px
+from plotly.offline import plot
 import json
 import daten
+from collections import Counter
 
-"""import numpy as np"""
-"""import matplotlib.pyplot as plt
-import plotly.express as px
-from plotly.offline import plot"""
+
 
 app = Flask("Datenvisualisierung")
 app = Flask("Geschenkidee")
 app = Flask("Daten")
-app = Flask("templates")
 
 
 
-"""alle Seitenverlinkungen"""
+"""Meine main.py Datei setzt die Hilfsfunktionen im daten.py zusammen. So ist es mir möglich, 
+die Übersicht zu bewahren, weil alle Details im daten.py file behandelt werden. Deshalb werden auch nur von hier
+@app.routen gemacht. Die daten.py wird oben importiert, ich spreche die einzelnen funktionen jeweils mit daten. an. 
+"""
+
+""" Auf der Home Seite wird nichts berechnet, deshalb reicht hier die Funktion zur Verlinkung, 
+welche für die Navigation verwendet wird.
+"""
+
+
 
 @app.route('/geschenkidee')
 def home():
-    return render_template('index.html')
+    
+    anzahl = daten.anzeige_hashtags()
+    
+    y_hashtag = []
+    x_hashtag = []
+    for hashtag, zahl in anzahl.items():
+        x_hashtag.append(hashtag)
+        y_hashtag.append(zahl)
 
+    div = daten.barchart(x_hashtag, y_hashtag, "Anzahl Geschenkideen pro Hashtag")
 
+    return render_template('index.html', viz_div=div)
 
-
-
-
-
-"""---------------------------------------------------"""
 
 
 """
-Beim Formular nehme ich die neuen Einträge mit request entgegen und forme direkt das json
-Jede Idee kann nur einmal vorkommen, ich rufe die Hilfsfunktion dazu im daten.py auf.
-Der json_speichern funktion gebe ich als variable an welches dokument und die andere variable ist der Inhalt,
-in diese habe ich zuvor den aktuellen Inhalt geladen und den neuen Eintrag hinzugefügt, so wird der neue Inhalt nun gespeichert.
+def pie():
+    # --- dataset 1: just 4 values for 4 groups:
+    fig = pd.DataFrame([8,8,1,2], index=['a', 'b', 'c', 'd'], columns=['x'])
+     
+    # make the plot
+    fig.plot(kind='pie', subplots=True, figsize=(8, 8))
+    return plotly.offline.plot(fig, output_type="div")
+"""
+"""
+ Erklärungen von Überlegungen und Struktur des Codes in Form von 
+ Kommentaren und Funktionsbeschreibungen im Code.
+ """
+
+"""
+Überlegungen: 
+Ich möchte ein Formular, dass mir die Werte Person, Idee, Beschreibung und einen Hashtag liefert.
+Dazu benötige ich eine Form von Bootstrap, welche im html mit den values erfasst werden muss, um von meinem
+main.py erkannt zu werden, dazu benötige ich Flask. Die erfassten Strings sollen in einem Json gespeichert werden.
+
+Funktionsbeschreibung:
+Das Formular nimmt neue Einträge entgegen und speichert diese im Json ab.
+Dafür werden die Eingaben mit request entgegengenommen. Da die Felder Person und Hashtag bei der Suche
+wiederverwendet werden, werden sie mit einem grossen Anfangsbuchstaben abgespeichert. So werden doppelte 
+Einträge durch Gross- Kleinschreibung verhindert. Bei der Idee und Beschreibung habe ich das nicht gemacht,
+da diese nicht zusammen verglichen werden. Zudem ist ja bei der Beschreibung durchaus möglich, einen Satz
+zu schreiben, der würde dann gramatikalisch nicht mehr stimmen.
+Wenn aus Versehen ein leerer Eintrag gespeichert wird, wird dieser nicht gespeichert und auf die entsprechende Meldung weitergeleitet
+
+Die Felder Person und Idee werden mit den bestehenden Einträgen abgeglichen, damit wird verhindert, dass die 
+selbe Idee zwei Mal gespeichert werden kann. Diese Hilfsfunktion wird im daten.py abgerufen.
+Wenn das nicht der Fall ist, wird der Eintrag der Json Datei hinzugefügt. Dazu wird der neue Inhalt der Funktion 
+im daten.py übergeben und gespeichert.
+Als Bestätigung, dass der Eintrag gespeichert wurde, wird das html erfolgreich_gespeichert.html zurückgegeben,
+darin werden die Details nochmals aufgelistet.
+Damit die geschenk_erfassen.html Seite angezeigt wird, ist sie im return geschrieben, alle oben erwähnten
+Schritte sind in einer if Bedingung und werden deshalb erst ausgeführt wenn etwas erfasst wird (submit Button
+angewählt wird).
 """
   
 @app.route("/geschenk_erfassen", methods=['GET', 'POST'])
 def formular_neuer_eintrag():
     if request.method == 'POST':
+        person = request.form["person"].capitalize()
         idee = request.form["idee"]
         beschreibung = request.form["beschreibung"]
-        person = request.form["person"].capitalize()
         hashtag = request.form["hashtag"].capitalize()
         inhalt = daten.json_lesen("geschenk_idee_formular.json")
         neuer_eintrag = {
@@ -55,17 +102,41 @@ def formular_neuer_eintrag():
             "beschreibung" : beschreibung,
             "hashtag" : hashtag
         }
+        if person == "" and idee == "" and beschreibung == "" and hashtag == "":
+            return render_template('leerer_eintrag.html')
         if daten.idee_bereits_vorhanden(person, idee):
-            return render_template('bereits_vorhandene_geschenkidee.html', person=person, beschreibung=beschreibung, idee=idee, hashtag=hashtag)
+            return render_template('bereits_vorhandene_geschenkidee.html', person=person, idee=idee, beschreibung=beschreibung, hashtag=hashtag)
         inhalt.append(neuer_eintrag)
         daten.json_speichern("geschenk_idee_formular.json", inhalt)
-        return render_template('erfolgreich_gespeichert.html', person=person, beschreibung=beschreibung, idee=idee, hashtag=hashtag)
+        return render_template('erfolgreich_gespeichert.html', person=person, idee=idee, beschreibung=beschreibung, hashtag=hashtag)
 
     return render_template("geschenk_erfassen.html")
 
 
 
+"""
+Überlegung:
+Ich brauche einerseits eine Suchseite als Formular, und andererseits müssen die Eingaben verglichen
+werden, um die korrekten als Ergebnis auszugeben. Als Suchmöglichkeiten definiere ich die Personen und 
+die Hashtags, diese werden in einzelnen Funktionen abgearbeitet.
 
+Funktionsbeschreibung:
+Ausserhalb der if Bedingung, werden die Personen und Hashtags angezeigt, dazu werden 
+dem geschenk_suchen.html die beiden Variablen mitgegeben, damit sie Flask an das Html übermitteln kann.
+Sobald eine Eingabe erfolgt wird die if Bedingung ausgeführt. Es besteht die Möglichkeit, nach einer Person 
+oder Hashtags zu suchen, diese werden durch request.get entgegengenommen. Da es bei den Hashtags möglich ist, 
+mehrere anzuwählen, brauche ich eine Liste, damit sie separiert werden. Für den Fall, dass keine Person angegeben
+wird, habe ich das Feld Person auswählen auf einen leeren String gesetzt, denn in der Hilfsfunktion werden nur
+Strings mit inhalt berücksichtigt. Da die Variable personen_name im geschenk_ergebnis_person.html verwendet wird,
+musste ich diese if Bedingung im main.py machen und nicht im daten.py. So wird mir bei der Ergebnis Anzeige kein Titel angezeigt.
+
+Der personen_name wird der Hilfsfunktion mitgegeben, zurück bekomme ich alle Einträge die mit 
+dem key person im Json file übereinstimmen.
+Als nächstes prüfe ich, ob es für die ausgewählte Person Geschenke mit den ausgewählten Hashtags gibt. Wenn ja, 
+werden diese in der Variable geschenke gespeichert.
+Die Ergebnisse werden im geschenk_ergebnis_person.html angezeigt, dafür brauche ich im html die beiden Variablen geschenke und
+personen_name.
+"""
 
 @app.route("/geschenk_suchen", methods=['GET', 'POST'])
 def geschenk_suchen():
@@ -75,8 +146,6 @@ def geschenk_suchen():
     if request.method == 'POST':
         personen_name = request.form.get("person")
         ausgewaehlte_hashtags = request.form.getlist("hashtag")
-        print(ausgewaehlte_hashtags)
-        print(personen_name)
         if personen_name == "Person auswählen":
             personen_name = ""
         inhalt = daten.geschenke_anzeigen_fuer_person(personen_name)
@@ -85,68 +154,6 @@ def geschenk_suchen():
     return render_template('geschenk_suchen.html', hashtags=hashtags, personen=personen)
 
 
-
-
-
-
-
-
-
-"""
-
-def data():
-    data = px.data.gapminder()
-    data_ch = data[data.country == 'Switzerland']
-
-    return data_ch
-
-
-def viz():
-    data_ch = data()
-
-    fig = px.bar(
-        data_ch,
-        x='year', y='pop',
-        hover_data=['lifeExp', 'gdpPercap'],
-        color='lifeExp',
-        labels={
-            'pop': 'Einwohner der Schweiz',
-            'year': 'Jahrzehnt'
-        },
-        height=400
-    )
-
-    div = plot(fig, output_type="div")
-    return div
-
-
-@app.route("/")
-def index():
-    div = viz()
-    # return str([str(i) for i in data()])
-    return render_template('index.html', viz_div=div)
-"""
-
-
-
-
-
-
-"""
-#-------------------------------------------- Make a fake dataset:
-height = [3, 12, 5, 18, 45]
-bars = ('A', 'B', 'C', 'D', 'E')
-y_pos = np.arange(len(bars))
- 
-# Create bars
-plt.bar(y_pos, height)
- 
-# Create names on the x-axis
-plt.xticks(y_pos, bars)
- 
-# Show graphic
-plt.show()
-"""
 
     
 if __name__ == "__main__":
