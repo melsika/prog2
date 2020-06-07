@@ -39,7 +39,11 @@ Alle Einträge werden mit Json abgespeichert, die Struktur ist hier zu erkennen.
 ### Datenausgabe
 Die gespeicherten Einträge werden aus dem Json ausgelesen und ausgegeben.
 
-### Aktivitätsdiagram
+### Flussdiagramm
 
 
-![Diagram](./diagram.png)
+![Diagramm](./flussdiagramm.png)
+
+### Datenflussdiagramm
+
+[!Diagramm](./datenflussdiagramm)
