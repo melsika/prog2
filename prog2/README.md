@@ -46,4 +46,4 @@ Die gespeicherten Einträge werden aus dem Json ausgelesen und ausgegeben.
 
 ### Datenflussdiagramm
 
-[!Diagramm](./datenflussdiagramm.png)
+[!Diagrammdaten](./datenflussdiagramm.png)
