@@ -136,5 +136,17 @@
         "idee": "Pyjama",
         "beschreibung": "Blau",
         "hashtag": "Zimmer"
+    },
+    {
+        "person": "Eva",
+        "idee": "Spiderman",
+        "beschreibung": "Bedruckte Tasse",
+        "hashtag": "K\u00fcche"
+    },
+    {
+        "person": "Melanie",
+        "idee": "Bienenwachskerze",
+        "beschreibung": "mag Duftkerzen",
+        "hashtag": "Dekoration"
     }
 ]

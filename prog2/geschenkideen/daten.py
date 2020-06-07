@@ -1,6 +1,7 @@
 
 import json
 import plotly.graph_objects as go
+from plotly.offline import plot
 import plotly
 from collections import Counter
 
@@ -122,7 +123,9 @@ def geschenke_mit_hashtags(person, hashtags):
 
 
 
-
+"""
+Zählen, wie oft die Hashtags vorkommen
+"""
 
 def anzeige_hashtags():
     inhalt = json_lesen("geschenk_idee_formular.json")
@@ -132,3 +135,15 @@ def anzeige_hashtags():
             resultat.append(eintrag["hashtag"])
     count = Counter(resultat)
     return count
+
+
+"""
+Darstellung des Barcharts
+"""
+
+def barchart(x_daten, y_daten, titel):
+    fig = go.Figure(
+        data=[go.Bar(x=x_daten, y=y_daten)],
+        layout_title_text=titel
+        )
+    return plotly.offline.plot(fig, output_type="div")

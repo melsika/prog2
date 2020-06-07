@@ -3,39 +3,43 @@
 
 
 ## Ausgangslage
-Ganz oft kommt es vor, dass ich vor Weihnachten oder einem Geburtstag keine Geschenkidee habe. Es wäre deshalb super, während des Jahres mögliche Ideen zu speichern und diese vor dem Event abrufen zu können. Weiterführend ist die Idee, dass alle ihre eigene Wunschliste veröffentlichen und mit Freunden teilen. Das Ziel ist es, das passende Geschenk zu finden und unnötige und unbrauchbare Geschenke zu vermeiden.
+Ganz oft kommt es vor, dass ich vor Weihnachten oder einem Geburtstag keine Geschenkidee habe. Es wäre deshalb super, während des Jahres mögliche Ideen zu speichern, um diese vor dem Event abrufen zu können.
 
-## Funktion/Projektidee
-Einerseits soll es möglich sein, Geschenkideen Personen zuzuordnen. Andererseits sollen Nutzende ihre eigenen Wünsche teilen können. Personen und Geschenkideen werden mit Tags nach Interessen eingeteilt. Durch diese können allgemein gespeicherte Geschenkideen zugeordnet und angezeigt werden.
+## Funktion / Projektidee
+Die Webapplikation soll Geschenke erfassen und es erlauben, nach diesen zu suchen. Die Suchmöglichkeit soll für den Namen und Hashtags möglich sein.
+
+
+## Installationsanleitung
+Für die korrekte Ausführung der Webapplikation muss Flask und Plotly installiert werden. Danach kann die main.py Datei mit dem Befehl Python main.py gestartet werden.
+
 
 ## Workflow
-**Eingabe der schenkenden Person**
+**Erfassen einer Geschenkidee**
 - Erfassen der Person
 - Notieren der Geschenkidee
-- Zuordnen der Tags
+- Hinzufügen einer Beschreibung
+- Aufführen eines Hashtags
 
-**Erfassen eigener Wunschliste**
-- Bearbeiten der Wunschliste anwählen
-- Beiträge hinzufügen oder löschen
-- veröffentlichen
+**Suchen einer Geschenkidee**
+- Auswählen einer Person
+- Ankreuzen der Hashtags
 
-**Geschenkidee allgemein speichern**
-- Allgemeiner Eintrag anwählen
-- Tags hinzufügen
-
-**Geschenkidee suchen**
-- Nach Person, Tag oder Allgemeinen Einträgen suchen
 
 ### Dateneingabe
+Einem neuen Eintrag können folgende Merkmale hinzugefügt werden.
 - Person
 - Geschenkidee
-- Tag
+- Beschreibung
+- Hashtag
 
-### Datenverarbeitung/Speicherung
-- Speicherung und Abfrage erfolgt aus einer JSON Datei
+### Datenverarbeitung / Speicherung
+Alle Einträge werden mit Json abgespeichert, die Struktur ist hier zu erkennen.
+![Image](./json_struktur.png)
 
 ### Datenausgabe
-- Die gespeicherten Einträge werden ausgegeben
-- Weiterführend wären Links zu Webseiten wo der Artikel gefunden wurde denkbar
+Die gespeicherten Einträge werden aus dem Json ausgelesen und ausgegeben.
+
+### Aktivitätsdiagram
+
 
 ![Diagram](./diagram.png)

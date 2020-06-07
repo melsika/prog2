@@ -3,30 +3,35 @@ from flask import Flask
 from flask import request
 from flask import render_template
 from json import loads, dumps
-import plotly
-import plotly.graph_objects as go
-import pandas as pd
-import plotly.express as px
-from plotly.offline import plot
+
+
 import json
 import daten
-from collections import Counter
 
 
 
-app = Flask("Datenvisualisierung")
+
 app = Flask("Geschenkidee")
-app = Flask("Daten")
 
 
 
-"""Meine main.py Datei setzt die Hilfsfunktionen im daten.py zusammen. So ist es mir möglich, 
+"""
+Meine main.py Datei setzt die Hilfsfunktionen im daten.py zusammen. So ist es mir möglich, 
 die Übersicht zu bewahren, weil alle Details im daten.py file behandelt werden. Deshalb werden auch nur von hier
 @app.routen gemacht. Die daten.py wird oben importiert, ich spreche die einzelnen funktionen jeweils mit daten. an. 
 """
 
-""" Auf der Home Seite wird nichts berechnet, deshalb reicht hier die Funktion zur Verlinkung, 
-welche für die Navigation verwendet wird.
+""" 
+Überlegung:
+Auf der Home Seite befindet sich ein Barchart, er soll anzeigen, welche Hashtags
+wie oft vorkommen. Dazu brauche ich Plotly, den Code finde ich auf deren Webseite.
+
+Funktionsbeschreibung:
+Ich bekomme ein mit dem Counter gezähltes Dictionary zurück welches ich mit der 
+for Schleife trenne und den key und values in separate Listen speichere.
+Diese Listen übergebe ich um den Barchart darzustellen. 
+Das ganze wird als viz_div Variable dem index.html übergeben.
+
 """
 
 
@@ -47,20 +52,6 @@ def home():
     return render_template('index.html', viz_div=div)
 
 
-
-"""
-def pie():
-    # --- dataset 1: just 4 values for 4 groups:
-    fig = pd.DataFrame([8,8,1,2], index=['a', 'b', 'c', 'd'], columns=['x'])
-     
-    # make the plot
-    fig.plot(kind='pie', subplots=True, figsize=(8, 8))
-    return plotly.offline.plot(fig, output_type="div")
-"""
-"""
- Erklärungen von Überlegungen und Struktur des Codes in Form von 
- Kommentaren und Funktionsbeschreibungen im Code.
- """
 
 """
 Überlegungen: 
