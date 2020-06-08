@@ -87,7 +87,7 @@
         "person": "Tim",
         "idee": "Sonnencreme",
         "beschreibung": "50",
-        "hashtag": "Sommer"
+        "hashtag": "Ferien"
     },
     {
         "person": "Tim",
@@ -148,5 +148,11 @@
         "idee": "Bienenwachskerze",
         "beschreibung": "mag Duftkerzen",
         "hashtag": "Dekoration"
+    },
+    {
+        "person": "Stefan",
+        "idee": "Schoggi",
+        "beschreibung": "Osterhase",
+        "hashtag": "S\u00fcssigkeit"
     }
 ]

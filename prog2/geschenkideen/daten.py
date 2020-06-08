@@ -11,8 +11,6 @@ Die daten.py Datei beinhaltet alle Hilfsfunktionen, die im main.py gebraucht wer
 """
 
 
-
-
 """
 Das sind meine allgemeinen Speicher- und Lesefunktionen von Json Dateien
 """
@@ -26,7 +24,6 @@ def json_lesen(datei_name):
 def json_speichern(datei_name, datei_inhalt):
     with open(datei_name, "w") as open_file:
         json.dump(datei_inhalt, open_file, indent=4)
-
 
 
 
@@ -52,9 +49,9 @@ Ich möchte alle hashtags und personen anzeigen.
 
 Funktionsbeschreibung:
 Zuerst brauche ich die aktuelle json Datei. Zurückgeben möchte ich eine Liste,
-diese ist vorerst leer. In der for Schleife gehe ich alle Einträge durch, und speichere
-alle values, die unter hashtag gespeichert sind und kein leerer String sind heraus. Ich 
-speichere sie jeweils in der resultat Liste. Damit keine doppelten angezeigt werden mache ich eine
+diese ist vorerst leer. In der for Schleife gehe ich alle Einträge durch und speichere
+alle Values, die unter hashtag gespeichert sind und kein leerer String sind. Ich 
+speichere sie jeweils in der resultat Liste. Damit keine Doppelten angezeigt werden, mache ich eine
 set liste, also alles nur einmal und für die Benutzerfreundlichkeit sortiere ich sie alphabetisch. 
 """
 def hashtags_anzeigen():
@@ -76,16 +73,15 @@ def personen_anzeigen():
 
 
 
-
 """
 Überlegung:
 Ich möchte alle Einträge zurückgeben, die mit dem vom User angewählten
 personen_name übereinstimmen.
 
 Funktionsbeschreibung:
-Wenn der personen_name kein leerer String ist, werden alle Einträge vom json
+Wenn der personen_name kein leerer String ist, werden alle Einträge im json
 durchgegangen und sobald ein Value mit dem des personen_name übereinstimmt,
-wird er der anfangs leeren Liste hinzugefügt, diese wird zurückgegeben.
+wird er der anfangs leeren Liste hinzugefügt, diese wird am Ende zurückgegeben.
 Wenn kein personen_name übergeben wird, wird der gesamte Inhalt der json Datei zurückgegeben.
 """
 def geschenke_anzeigen_fuer_person(personen_name):
@@ -103,14 +99,14 @@ def geschenke_anzeigen_fuer_person(personen_name):
 """
 Überlegung:
 Alle ausgewählten Personen und ausgewählten Hashtags sollen zurückgegeben werden.
-Es soll auch möglich sein nichts anzuwählen.
+Es soll auch möglich sein, nichts anzuwählen.
 
 Funktionsbeschreibung:
 Ich brauche dafür die Einträge der person, wenn nun im Wert hashtags (der aus den 
 ausgewählten Hashtags besteht) etwas gespeichert ist, werden die Einträge durchgegangen.
 Wenn ein Value mit einem der hashtags matcht, dann wird er in der resultat Liste gespeichert 
-und diese zurückgeben.
-Wenn in hashtags nichts gespeichert ist, werden die Einträge in person zurückgegeben.
+und diese zurückgegeben.
+Wenn in hashtags nichts gespeichert ist (nichts angewählt wurde), werden die Einträge in person zurückgegeben.
 """
 def geschenke_mit_hashtags(person, hashtags):
     if len(hashtags) > 0:
@@ -124,7 +120,12 @@ def geschenke_mit_hashtags(person, hashtags):
 
 
 """
+Überlegung:
 Zählen, wie oft die Hashtags vorkommen
+
+Funktionsbeschreibung:
+Wie bereits oben, werden alle Hashtag Einträge in einer Liste gespeichert.
+Mit dem Counter wird ein Dictionary erstellt mit dem Key als Hashtag und dem Value als Anzahl
 """
 
 def anzeige_hashtags():

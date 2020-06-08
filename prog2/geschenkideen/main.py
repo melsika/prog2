@@ -3,11 +3,8 @@ from flask import Flask
 from flask import request
 from flask import render_template
 from json import loads, dumps
-
-
 import json
 import daten
-
 
 
 
@@ -16,9 +13,9 @@ app = Flask("Geschenkidee")
 
 
 """
-Meine main.py Datei setzt die Hilfsfunktionen im daten.py zusammen. So ist es mir möglich, 
-die Übersicht zu bewahren, weil alle Details im daten.py file behandelt werden. Deshalb werden auch nur von hier
-@app.routen gemacht. Die daten.py wird oben importiert, ich spreche die einzelnen funktionen jeweils mit daten. an. 
+Meine main.py Datei setzt die Hilfsfunktionen vom daten.py zusammen. So ist es mir möglich, 
+die Übersicht zu bewahren, weil alle Details im daten.py file behandelt werden. Es werden nur von hier
+@app.routen gemacht. Die daten.py wird oben importiert, danach spreche ich die einzelnen Funktionen jeweils mit daten. an. 
 """
 
 """ 
@@ -27,14 +24,11 @@ Auf der Home Seite befindet sich ein Barchart, er soll anzeigen, welche Hashtags
 wie oft vorkommen. Dazu brauche ich Plotly, den Code finde ich auf deren Webseite.
 
 Funktionsbeschreibung:
-Ich bekomme ein mit dem Counter gezähltes Dictionary zurück welches ich mit der 
-for Schleife trenne und den key und values in separate Listen speichere.
-Diese Listen übergebe ich um den Barchart darzustellen. 
+Ich bekomme ein mit dem Counter gezähltes Dictionary zurück, welches ich mit der 
+for Schleife trenne und die Key und Values in separate Listen speichere.
+Diese Listen übergebe ich, um den Barchart darzustellen. 
 Das ganze wird als viz_div Variable dem index.html übergeben.
-
 """
-
-
 
 @app.route('/geschenkidee')
 def home():
@@ -55,8 +49,8 @@ def home():
 
 """
 Überlegungen: 
-Ich möchte ein Formular, dass mir die Werte Person, Idee, Beschreibung und einen Hashtag liefert.
-Dazu benötige ich eine Form von Bootstrap, welche im html mit den values erfasst werden muss, um von meinem
+Ich möchte eine Eingabe, in der der User die Werte Person, Idee, Beschreibung und einen Hashtag angibt.
+Dazu benötige ich ein Formular von Bootstrap, welches im html mit den values erfasst werden muss, um von meinem
 main.py erkannt zu werden, dazu benötige ich Flask. Die erfassten Strings sollen in einem Json gespeichert werden.
 
 Funktionsbeschreibung:
@@ -64,19 +58,17 @@ Das Formular nimmt neue Einträge entgegen und speichert diese im Json ab.
 Dafür werden die Eingaben mit request entgegengenommen. Da die Felder Person und Hashtag bei der Suche
 wiederverwendet werden, werden sie mit einem grossen Anfangsbuchstaben abgespeichert. So werden doppelte 
 Einträge durch Gross- Kleinschreibung verhindert. Bei der Idee und Beschreibung habe ich das nicht gemacht,
-da diese nicht zusammen verglichen werden. Zudem ist ja bei der Beschreibung durchaus möglich, einen Satz
-zu schreiben, der würde dann gramatikalisch nicht mehr stimmen.
+da diese nicht zusammen verglichen werden.
 Wenn aus Versehen ein leerer Eintrag gespeichert wird, wird dieser nicht gespeichert und auf die entsprechende Meldung weitergeleitet
 
 Die Felder Person und Idee werden mit den bestehenden Einträgen abgeglichen, damit wird verhindert, dass die 
 selbe Idee zwei Mal gespeichert werden kann. Diese Hilfsfunktion wird im daten.py abgerufen.
 Wenn das nicht der Fall ist, wird der Eintrag der Json Datei hinzugefügt. Dazu wird der neue Inhalt der Funktion 
-im daten.py übergeben und gespeichert.
+dem daten.py übergeben und gespeichert.
 Als Bestätigung, dass der Eintrag gespeichert wurde, wird das html erfolgreich_gespeichert.html zurückgegeben,
 darin werden die Details nochmals aufgelistet.
 Damit die geschenk_erfassen.html Seite angezeigt wird, ist sie im return geschrieben, alle oben erwähnten
-Schritte sind in einer if Bedingung und werden deshalb erst ausgeführt wenn etwas erfasst wird (submit Button
-angewählt wird).
+Schritte sind in einer if Bedingung und werden deshalb erst ausgeführt wenn etwas erfasst wird (mit dem submit Button).
 """
   
 @app.route("/geschenk_erfassen", methods=['GET', 'POST'])
@@ -108,13 +100,13 @@ def formular_neuer_eintrag():
 """
 Überlegung:
 Ich brauche einerseits eine Suchseite als Formular, und andererseits müssen die Eingaben verglichen
-werden, um die korrekten als Ergebnis auszugeben. Als Suchmöglichkeiten definiere ich die Personen und 
+werden, um nur die gewünschten als Ergebnis auszugeben. Als Suchmöglichkeiten definiere ich die Personen und 
 die Hashtags, diese werden in einzelnen Funktionen abgearbeitet.
 
 Funktionsbeschreibung:
 Ausserhalb der if Bedingung, werden die Personen und Hashtags angezeigt, dazu werden 
 dem geschenk_suchen.html die beiden Variablen mitgegeben, damit sie Flask an das Html übermitteln kann.
-Sobald eine Eingabe erfolgt wird die if Bedingung ausgeführt. Es besteht die Möglichkeit, nach einer Person 
+Sobald eine Eingabe erfolgt, wird die if Bedingung ausgeführt. Es besteht die Möglichkeit, nach einer Person 
 oder Hashtags zu suchen, diese werden durch request.get entgegengenommen. Da es bei den Hashtags möglich ist, 
 mehrere anzuwählen, brauche ich eine Liste, damit sie separiert werden. Für den Fall, dass keine Person angegeben
 wird, habe ich das Feld Person auswählen auf einen leeren String gesetzt, denn in der Hilfsfunktion werden nur
