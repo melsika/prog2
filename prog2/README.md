@@ -10,7 +10,7 @@ Die Webapplikation soll Geschenke erfassen und es erlauben, nach diesen zu suche
 
 
 ## Installationsanleitung
-Für die korrekte Ausführung der Webapplikation muss Flask und Plotly installiert werden. Danach kann die main.py Datei mit dem Befehl Python main.py gestartet werden.
+Für die korrekte Ausführung der Webapplikation muss Flask und Plotly installiert werden. Nachdem der Ordner von Github heruntergeladen wurde, kann man ihn ativieren mit activate prog2. Danach findet man im Ordner Geschenkideen die main.py Datei. Diese kann mit dem Befehl Python main.py gestartet werden.
 
 
 ## Workflow
@@ -40,10 +40,11 @@ Alle Einträge werden mit Json abgespeichert, die Struktur ist hier zu erkennen.
 Die gespeicherten Einträge werden aus dem Json ausgelesen und ausgegeben.
 
 ### Flussdiagramm
-
+Als User hat man die Möglichkeit, Geschenkideen zu Erfassen und nach ihnen zu Suchen. 
 
 ![Diagramm](./flussdiagramm.png)
 
 ### Datenflussdiagramm
+Wie hier zu sehen ist, ist die Json Datei sehr zentral. Alle Seiten der Webapplikation greifen auf diese zu. Sei dies beim Speichern eines neuen Eintrages, beim Suchen nach einer Geschenkidee oder für die Anzeige des Barchart auf der Homeseite.
 
-[!Diagrammdaten](./datenflussdiagramm.png)
+[!Daten](./datenflussdiagramm.png)
