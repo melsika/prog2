@@ -34,17 +34,17 @@ Einem neuen Eintrag können folgende Merkmale hinzugefügt werden.
 
 ### Datenverarbeitung / Speicherung
 Alle Einträge werden mit Json abgespeichert, die Struktur ist hier zu erkennen.
-![Image](./json_struktur.png)
+![Image](./json_struktur.png | width=100 )
 
 ### Datenausgabe
 Die gespeicherten Einträge werden aus dem Json ausgelesen und ausgegeben.
 
-### Flussdiagramm
+## Flussdiagramm
 Als User hat man die Möglichkeit, Geschenkideen zu Erfassen und nach ihnen zu Suchen. 
 
 ![Diagramm](./flussdiagramm.png)
 
-### Datenflussdiagramm
+## Datenflussdiagramm
 Wie hier zu sehen ist, ist die Json Datei sehr zentral. Alle Seiten der Webapplikation greifen auf diese zu. Sei dies beim Speichern eines neuen Eintrages, beim Suchen nach einer Geschenkidee oder für die Anzeige des Barchart auf der Homeseite.
 
-[!Daten](./datenflussdiagramm.png)
+![Daten](./datenflussdiagramm.png)
